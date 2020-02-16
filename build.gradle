@@ -1,0 +1,39 @@
+buildscript {
+    ext {                                    //ext는 build.gradle에서 사용하는 전역변수를 설정하겠다는 의미
+        springBootVersion = '2.1.7.RELEASE'  //springBootVersion이라는 전역변수를 생성하고 그값을 '2.1.7.RELEASE'로 하겠다라는의미
+    }                                        //즉 spring-boot-gradle-plugin라는 스프링부트 그레이들 플러그인의 2.1.7.RELEASE를 의존성으로 받겠다는 의미     
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+//플러그인이란: 일반적인 소프트웨어의 일부이다. 브라우저에서 취급할 수 없는 인터넷 상의 콘텐츠를 취급한다. 원래, 이 기술은 
+//비디오나 오디오, 온라인 게임, 프레젠테이션 등의 특허로 보호된 형식입니다. 플러그인은 제3의 상업 회사에 의해서 개발되어 배포되고 있습니다.
+//플러그인은 웹 브라우저의 일부로서 쉽게 설치되고 사용될 수 있는 프로그램을 말한다.
+
+//앞서 선언한 플러그인 의존성들을 적용할것인지를 결정하는 코드임.
+//밑에 4개는 자바와 스프링부트를 사용하기 위해서는 필수 플러그인들이니 항상 추가하면 된다.
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'  //스프링부트의 의존성들을 관리해주는 플러그인이라 꼭 추가해야한다.
+
+group 'com.jojoldu.book'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {       //repositories는 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지를 정함.
+    mavenCentral()   //기본적으로 mavenCentral을 많이 사용하고, 최근엔 라이브러리 업로드 난이도 때문에 jcenter도 많이 사용해서 2개를 지정함.
+    jcenter()        //mavenCentral는 업로드 공유가 힘들어 최근에 나온 jcenter는 이런 문제점을 개선하여 업로드를 간단히 할수 있고  
+}                    //라이브러리를 업로드하면 mavenCentral에도 업로드 될 수 있도록 자동화를 할수 있다.
+
+//compile 메소드안에 라이브러리의 이름의 앞부분만 추가한뒤 단축키 Ctrl+Space를 누르면 자동완성된다.
+dependencies {       //dependencies는 프로젝트 개발에 필요한 의존성들을 선언하는 곳이다. 밑에 2개가 받도록 선언되어있다.
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
